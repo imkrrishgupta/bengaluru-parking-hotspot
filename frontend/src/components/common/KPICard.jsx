@@ -2,31 +2,24 @@ export default function KPICard({
   title,
   value,
   subtitle,
-  color = "text-sky-400",
+  accent = false,
 }) {
   return (
-    <div
-      className="
-        bg-[#111827]
-        border
-        border-slate-800
-        rounded-2xl
-        p-5
-        hover:border-sky-500/30
-        transition-all
-        duration-300
-      "
-    >
-      <p className="text-xs uppercase tracking-wider text-slate-500 font-semibold">
+    <div className="bg-[#1a1a1a] border border-[#3d3a39] rounded-lg p-5">
+      <p
+        className="text-[11px] uppercase tracking-[2px] font-semibold"
+        style={{ color: '#8b949e', letterSpacing: '2px' }}
+      >
         {title}
       </p>
-
-      <h2 className={`text-3xl font-bold mt-3 ${color}`}>
-        {value}
-      </h2>
-
+      <p
+        className="mt-2 font-mono text-[28px] leading-none font-bold"
+        style={{ color: accent ? '#00d992' : '#ffffff' }}
+      >
+        {value ?? '—'}
+      </p>
       {subtitle && (
-        <p className="text-sm text-slate-400 mt-2">
+        <p className="mt-1.5 text-[12px]" style={{ color: '#8b949e' }}>
           {subtitle}
         </p>
       )}

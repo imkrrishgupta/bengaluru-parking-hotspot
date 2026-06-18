@@ -6,30 +6,46 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-} from "recharts";
+  Cell,
+} from 'recharts';
+
+const TOOLTIP_STYLE = {
+  background: '#1a1a1a',
+  border: '1px solid #3d3a39',
+  borderRadius: '6px',
+  padding: '8px 12px',
+  fontSize: '12px',
+  color: '#f2f2f2',
+};
 
 export default function StationChart({ data }) {
   return (
-    <ResponsiveContainer
-      width="100%"
-      height={350}
-    >
-      <BarChart data={data}>
-        <CartesianGrid stroke="#1F2937" />
-
+    <ResponsiveContainer width="100%" height={350}>
+      <BarChart data={data} margin={{ top: 4, right: 8, left: 0, bottom: 60 }}>
+        <CartesianGrid stroke="#1e1e1e" vertical={false} />
         <XAxis
           dataKey="police_station"
-          stroke="#CBD5E1"
+          stroke="#3d3a39"
+          tick={{ fill: '#8b949e', fontSize: 11 }}
+          angle={-35}
+          textAnchor="end"
+          interval={0}
         />
-
-        <YAxis stroke="#CBD5E1" />
-
-        <Tooltip />
-
-        <Bar
-          dataKey="total_cases"
-          fill="#38BDF8"
+        <YAxis stroke="#3d3a39" tick={{ fill: '#8b949e', fontSize: 11 }} />
+        <Tooltip
+          contentStyle={TOOLTIP_STYLE}
+          cursor={{ fill: 'rgba(255,255,255,0.03)' }}
+          itemStyle={{ color: '#f2f2f2' }}
+          labelStyle={{ color: '#8b949e' }}
         />
+        <Bar dataKey="total_cases" radius={[4, 4, 0, 0]}>
+          {(data || []).map((_, index) => (
+            <Cell
+              key={index}
+              fill={index < 3 ? '#00d992' : 'rgba(0,217,146,0.35)'}
+            />
+          ))}
+        </Bar>
       </BarChart>
     </ResponsiveContainer>
   );

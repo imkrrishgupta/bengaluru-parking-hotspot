@@ -1,60 +1,77 @@
-import {
-  RefreshCw,
-  CheckCircle2,
-  Activity,
-} from "lucide-react";
+import { useLocation } from 'react-router-dom';
+import { RefreshCw } from 'lucide-react';
+import { sidebarItems } from '../../constants/sidebarItems';
 
 export default function Navbar() {
+  const location = useLocation();
+
+  const currentItem = sidebarItems.find((item) => {
+    if (item.path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(item.path);
+  });
+
+  const pageTitle = currentItem?.title ?? 'Dashboard';
+
   return (
-    <header className="h-16 border-b border-slate-800 bg-[#111827] px-6 flex items-center justify-between">
-      {/* Left */}
-      <div>
-        <h1 className="text-xl font-semibold text-white">
-          Overview Dashboard
-        </h1>
-      </div>
+    <header
+      className="flex items-center justify-between px-6"
+      style={{
+        height: '56px',
+        background: '#101010',
+        borderBottom: '1px solid #3d3a39',
+      }}
+    >
+      {/* Left: page title */}
+      <p className="text-[15px] font-medium text-white">{pageTitle}</p>
 
-      {/* Right */}
-      <div className="flex items-center gap-4">
-        {/* Model Status */}
-        <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20">
-          <Activity size={14} className="text-green-400" />
-
-          <span className="text-xs font-medium text-green-400">
-            Model Loaded (LGBM)
-          </span>
-        </div>
-
-        {/* API Status */}
-        <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20">
-          <CheckCircle2 size={14} className="text-sky-400" />
-
-          <span className="text-xs font-medium text-sky-400">
-            API Healthy
-          </span>
-        </div>
-
-        {/* Last Updated */}
-        <span className="hidden lg:block text-xs text-slate-400">
-          Last updated: 2 mins ago
-        </span>
-
-        {/* Refresh Button */}
-        <button
-          className="
-            flex items-center gap-2
-            bg-sky-500
-            hover:bg-sky-600
-            text-black
-            font-semibold
-            px-4 py-2
-            rounded-lg
-            transition
-          "
+      {/* Right: chips + refresh */}
+      <div className="flex items-center gap-3">
+        {/* Status chip */}
+        <div
+          className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold"
+          style={{
+            background: 'rgba(0,217,146,0.1)',
+            border: '1px solid rgba(0,217,146,0.3)',
+            color: '#00d992',
+          }}
         >
-          <RefreshCw size={16} />
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ background: '#00d992' }}
+          />
+          Live
+        </div>
 
-          Refresh
+        {/* API chip */}
+        <div
+          className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold"
+          style={{
+            background: 'rgba(0,217,146,0.06)',
+            border: '1px solid rgba(0,217,146,0.2)',
+            color: '#00d992',
+          }}
+        >
+          API Healthy
+        </div>
+
+        {/* Refresh */}
+        <button
+          onClick={() => window.location.reload()}
+          className="flex items-center gap-1.5 text-[13px] font-semibold rounded-md px-3 py-1.5 transition-colors"
+          style={{
+            background: '#101010',
+            color: '#f2f2f2',
+            border: '1px solid #3d3a39',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = '#101010';
+          }}
+        >
+          <RefreshCw size={13} />
+          <span className="hidden sm:inline">Refresh</span>
         </button>
       </div>
     </header>

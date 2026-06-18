@@ -1,42 +1,33 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { RefreshCw } from 'lucide-react';
 
-export default function RefreshButton({
-  onRefresh,
-}) {
-  const [refreshing, setRefreshing] =
-    useState(false);
+export default function RefreshButton({ onRefresh }) {
+  const [refreshing, setRefreshing] = useState(false);
 
   const handleRefresh = async () => {
-  try {
-    await Promise.all([
-      fetchSummary(),
-      fetchStations(),
-      fetchHealth(),
-    ]);
-  } catch (error) {
-    console.error(error);
-  }
-};
+    setRefreshing(true);
+    try {
+      if (onRefresh) await onRefresh();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   return (
     <button
       onClick={handleRefresh}
       disabled={refreshing}
-      className="
-        px-5
-        py-3
-        rounded-xl
-        bg-sky-500
-        hover:bg-sky-600
-        text-black
-        font-semibold
-        transition-all
-        disabled:opacity-50
-      "
+      className="flex items-center gap-1.5 text-[13px] font-semibold rounded-md px-3 py-1.5 transition-colors disabled:opacity-50"
+      style={{
+        background: '#101010',
+        color: '#f2f2f2',
+        border: '1px solid #3d3a39',
+      }}
     >
-      {refreshing
-        ? "Refreshing..."
-        : "Refresh"}
+      <RefreshCw size={13} className={refreshing ? 'animate-spin' : ''} />
+      {refreshing ? 'Refreshing...' : 'Refresh'}
     </button>
   );
 }

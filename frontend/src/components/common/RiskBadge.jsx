@@ -1,30 +1,22 @@
-export default function RiskBadge({
-  risk,
-}) {
-  const colors = {
-    Critical:
-      "bg-red-500/20 text-red-400",
+export default function RiskBadge({ risk }) {
+  const normalized = (risk || '').toLowerCase();
 
-    High:
-      "bg-orange-500/20 text-orange-400",
-
-    Medium:
-      "bg-yellow-500/20 text-yellow-400",
-
-    Low:
-      "bg-green-500/20 text-green-400",
-  };
+  let cls = '';
+  if (normalized === 'critical') {
+    cls = 'border border-red-500/40 text-red-400 bg-red-500/10';
+  } else if (normalized === 'high') {
+    cls = 'border border-orange-500/40 text-orange-400 bg-orange-500/10';
+  } else if (normalized === 'moderate' || normalized === 'medium') {
+    cls = 'border border-yellow-500/40 text-yellow-400 bg-yellow-500/10';
+  } else if (normalized === 'low') {
+    cls = 'border border-[#00d992]/40 text-[#00d992] bg-[#00d992]/10';
+  } else {
+    cls = 'border border-[#3d3a39] text-[#8b949e] bg-transparent';
+  }
 
   return (
     <span
-      className={`
-        px-3
-        py-1
-        rounded-full
-        text-xs
-        font-semibold
-        ${colors[risk] || colors.Low}
-      `}
+      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${cls}`}
     >
       {risk}
     </span>
