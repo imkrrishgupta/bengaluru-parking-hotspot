@@ -8,38 +8,30 @@ import {
   CartesianGrid,
 } from "recharts";
 
-export default function FeatureImportanceChart({
+export default function ForecastChart({
   data,
 }) {
   return (
     <ResponsiveContainer
       width="100%"
-      height={600}
+      height={450}
     >
-      <BarChart
-        data={data}
-        layout="vertical"
-      >
+      <BarChart data={data}>
         <CartesianGrid stroke="#1f2937" />
 
         <XAxis
-          type="number"
+          dataKey="spatial_cell_id"
           stroke="#94a3b8"
         />
 
-        <YAxis
-          type="category"
-          dataKey="feature"
-          width={180}
-          stroke="#94a3b8"
-        />
+        <YAxis stroke="#94a3b8" />
 
         <Tooltip />
 
         <Bar
-          dataKey="importance_pct"
+          dataKey="forecasted_count"
           fill="#0ea5e9"
-          radius={[0, 6, 6, 0]}
+          radius={[6, 6, 0, 0]}
         />
       </BarChart>
     </ResponsiveContainer>

@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react";
 import API from "../api/axios";
 
-export default function useFeatureImportance() {
-  const [features, setFeatures] = useState([]);
+export default function useRiskZones() {
+  const [riskZones, setRiskZones] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const fetchFeatures = async () => {
+  const fetchRiskZones = async () => {
     try {
       setError("");
 
       const response = await API.get(
-        "/feature-importance?limit=30"
+        "/risk-zones?limit=100"
       );
 
-      setFeatures(
+      setRiskZones(
         response.data?.data || []
       );
     } catch (err) {
       console.error(err);
       setError(
-        "Failed to load feature importance"
+        "Failed to load risk zones"
       );
     } finally {
       setLoading(false);
@@ -28,13 +28,13 @@ export default function useFeatureImportance() {
   };
 
   useEffect(() => {
-    fetchFeatures();
+    fetchRiskZones();
   }, []);
 
   return {
-    features,
+    riskZones,
     loading,
     error,
-    fetchFeatures,
+    fetchRiskZones,
   };
 }
