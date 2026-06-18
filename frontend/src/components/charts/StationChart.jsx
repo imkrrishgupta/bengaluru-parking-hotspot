@@ -8,9 +8,7 @@ import {
   CartesianGrid,
 } from "recharts";
 
-export default function StationChart({
-  data,
-}) {
+export default function StationChart({ data }) {
   return (
     <ResponsiveContainer
       width="100%"
