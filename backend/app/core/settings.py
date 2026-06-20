@@ -21,7 +21,7 @@ class Settings(BaseSettings):
 
     # Comma-separated list of allowed CORS origins
     CORS_ORIGINS: str = (
-        "https://parkintel-api.vercel.app",
+        "https://parkintel-api.vercel.app,"
         "http://localhost:3000,"
         "http://localhost:5173,"
         "http://localhost:8080,"
