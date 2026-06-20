@@ -19,22 +19,18 @@ class Settings(BaseSettings):
     # Model pkl lives in backend/app/models/ by default.
     MODEL_DIR: Path = _BACKEND_ROOT / "app" / "models"
 
-    # Comma-separated list of allowed CORS origins
-    CORS_ORIGINS: str = (
-        "https://parkintel-api.vercel.app,"
-        "http://localhost:3000,"
-        "http://localhost:5173,"
-        "http://localhost:8080,"
-        "http://127.0.0.1:3000,"
-        "http://127.0.0.1:5173"
-    )
-
     LOG_LEVEL: str = "INFO"
 
     @property
     def cors_origins_list(self) -> list[str]:
-        return [o.strip() for o in self.CORS_ORIGINS.split(",") if o.strip()]
-
+        return [
+            "https://parkintel-api.vercel.app",
+            "http://localhost:3000",
+            "http://localhost:5173",
+            "http://localhost:8080",
+            "http://127.0.0.1:3000",
+            "http://127.0.0.1:5173",
+        ]
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
