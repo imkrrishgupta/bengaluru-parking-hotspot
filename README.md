@@ -881,7 +881,7 @@ grid generation needs a new city bounding box.
 
 ## License
 
-This project was built for Flipkart Grid Round 2 (2024 hackathon).
+This project was built for Flipkart Grid Round 2 (2026 hackathon).
 
 ---
 
